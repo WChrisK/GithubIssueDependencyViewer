@@ -1,4 +1,6 @@
 .idea/
 retriever/auth.txt
+retriever/issues.json
+retriever/issues.js
 website/issues.json
 website/issues.js
