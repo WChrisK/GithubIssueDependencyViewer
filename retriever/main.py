@@ -62,6 +62,7 @@ class IssueReader:
             }
         data = {'issues': issues}
         with open(output_file_path, 'w') as f:
+            f.write('var issueData = ')
             json.dump(data, f, ensure_ascii=True, indent=4, separators=(',', ': '), sort_keys=True)
 
 
