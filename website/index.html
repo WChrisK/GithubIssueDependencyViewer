@@ -12,9 +12,9 @@
     </head>
     <body onload="populateIssueData()">
         <table class="table table-bordered">
-            <thead class="table-success">
+            <thead class="table-info">
                 <th scope="col">Id</th>
-                <th scope="col">Title</th>
+                <th scope="col">Available issues (no dependencies)</th>
                 <th scope="col">Area</th>
                 <th scope="col">Difficulty</th>
                 <th scope="col">Time</th>
@@ -29,11 +29,15 @@
         <br/>
 
         <table class="table table-bordered">
-            <thead>
-            <th scope="col">Unavailable issues (has dependencies)</th>
+            <thead class="table-info">
+                <th scope="col">Id</th>
+                <th scope="col">Unavailable issues (requires some dependencies to be completed first)</th>
+                <th scope="col">Area</th>
+                <th scope="col">Difficulty</th>
+                <th scope="col">Time</th>
             </thead>
             <tbody id="unavailable-issue-table">
-            <!-- Elements go here -->
+                <!-- Elements go here -->
             </tbody>
         </table>
 
