@@ -1,4 +1,5 @@
 const GITHUB_REPO_URL_BASE = 'https://github.com/WChrisK/Helion/issues/';
+const SORT_BY_AREA_PARAMETER = 'sortByArea';
 
 const TIME_INDEX_TO_TEXT = [
     'N/A',
@@ -13,6 +14,24 @@ const TIME_INDEX_TO_TEXT = [
     '4-7 days',
     '1+ weeks',
 ];
+
+function checkIfSortByArea() {
+    return window.location.href.indexOf(SORT_BY_AREA_PARAMETER) > 0;
+}
+
+function sortIssueListByArea(issueList) {
+    issueList.sort((firstIssue, secondIssue) => {
+        if (firstIssue.areas.length === 0)
+            return -1;
+        if (secondIssue.areas.length === 0)
+            return 1;
+
+        firstArea = firstIssue.areas[0];
+        secondArea = secondIssue.areas[0];
+
+        return firstArea.name > secondArea.name;
+    });
+}
 
 function extractDifficultyFromIssue(issue) {
     let difficulty = 0;
@@ -106,6 +125,7 @@ function findAvailableIssues() {
 
 function createAreaCell(issue, isDependency) {
     let dataArea = document.createElement('td');
+
     if (!isDependency) {
         let areaNames = [];
         let areaColors = [];
@@ -165,6 +185,10 @@ function createRow(issue, tableElement, isDependency) {
 function addIssuesToTable(issueList, allIssues, tableId) {
     let tableElement = document.getElementById(tableId);
 
+    if (checkIfSortByArea()) {
+        sortIssueListByArea(issueList);
+    }
+
     issueList.forEach(function(issue) {
         createRow(issue, tableElement, false);
 
@@ -175,8 +199,25 @@ function addIssuesToTable(issueList, allIssues, tableId) {
     });
 }
 
+function setSorterURL() {
+    if (checkIfSortByArea()) {
+        return;
+    }
+
+    let element = document.getElementById('available-area-header');
+
+    let link = document.createElement('a');
+    let url = window.location.href + '?' + SORT_BY_AREA_PARAMETER;
+    link.setAttribute('href', url);
+    link.innerText = '    (Sort)';
+
+    element.appendChild(link);
+}
+
 function populateIssueData() {
     let issuePartitions = findAvailableIssues();
     addIssuesToTable(issuePartitions['available'], issuePartitions['all'], 'available-issue-table');
     addIssuesToTable(issuePartitions['unavailable'], issuePartitions['all'], 'unavailable-issue-table');
+
+    setSorterURL();
 }

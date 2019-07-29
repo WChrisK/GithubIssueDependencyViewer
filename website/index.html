@@ -11,11 +11,11 @@
         <title>Github Issues</title>
     </head>
     <body onload="populateIssueData()">
-        <table class="table table-bordered">
+        <table id="available-table" class="table table-bordered table-responsive">
             <thead class="table-info">
                 <th scope="col">Id</th>
                 <th scope="col">Available issues (no dependencies)</th>
-                <th scope="col">Area</th>
+                <th scope="col" id="available-area-header">Area</th>
                 <th scope="col">Difficulty</th>
                 <th scope="col">Time</th>
             </thead>
@@ -28,7 +28,7 @@
         <br/>
         <br/>
 
-        <table class="table table-bordered">
+        <table id="unavailable-table" class="table table-bordered table-responsive">
             <thead class="table-info">
                 <th scope="col">Id</th>
                 <th scope="col">Unavailable issues (requires some dependencies to be completed first)</th>
